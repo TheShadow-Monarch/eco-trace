@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrace AI | Advanced Carbon Footprint Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">EcoTrace</span>
+                        <span class="logo-ai">AI</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <button class="btn btn-icon" id="infoBtn" title="About EcoTrace">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                    <button class="btn btn-secondary" id="shareBtn">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Share</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Calculate Your <span class="highlight">Ecological Footprint</span></h1>
+                <p class="hero-subtitle">Discover your environmental impact with AI-powered insights and personalized recommendations</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="globalAverage">15.2</div>
+                        <div class="stat-label">Global Average (tons CO₂/year)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="usersTracked">12,847</div>
+                        <div class="stat-label">Users Tracked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalSavings">28.5K</div>
+                        <div class="stat-label">Tons CO₂ Saved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="main-content">
+            <!-- Calculator Panel -->
+            <div class="panel calculator-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fas fa-calculator"></i>
+                        Carbon Footprint Calculator
+                    </h2>
+                    <p class="panel-subtitle">Enter your actual consumption data for accurate results</p>
+                </div>
+                
+                <div class="calculator-controls">
+                    <!-- Home Energy -->
+                    <div class="control-group">
+                        <div class="control-header">
+                            <div class="control-title">
+                                <i class="fas fa-home"></i>
+                                <span>Home Energy</span>
+                            </div>
+                            <div class="control-value" id="homeValue">100 kWh</div>
+                        </div>
+                        <div class="input-unit-group">
+                            <input type="number" min="0" max="2000" step="10" value="450" class="number-input" id="homeInput">
+                            <div class="unit-selector">
+                                <select id="homeUnit">
+                                    <option value="kwh">kWh/month</option>
+                                    <option value="dollars">$/month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Average household: 900 kWh/month</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Transportation -->
+                    <div class="control-group">
+                        <div class="control-header">
+                            <div class="control-title">
+                                <i class="fas fa-car"></i>
+                                <span>Transportation</span>
+                            </div>
+                            <div class="control-value" id="transportValue">200 km</div>
+                        </div>
+                        <div class="transport-inputs">
+                            <div class="transport-mode">
+                                <label>Car Distance</label>
+                                <div class="input-with-unit">
+                                    <input type="number" min="0" max="5000" step="10" value="150" id="carDistance">
+                                    <span class="unit">km/week</span>
+                                </div>
+                            </div>
+                            <div class="transport-mode">
+                                <label>Public Transport</label>
+                                <div class="input-with-unit">
+                                    <input type="number" min="0" max="1000" step="10" value="50" id="publicTransportDistance">
+                                    <span class="unit">km/week</span>
+                                </div>
+                            </div>
+                            <div class="transport-mode">
+                                <label>Flights</label>
+                                <div class="input-with-unit">
+                                    <input type="number" min="0" max="50" step="1" value="1" id="flightsCount">
+                                    <span class="unit">per year</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Includes car, public transport, and air travel</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Food Consumption -->
+                    <div class="control-group">
+                        <div class="control-header">
+                            <div class="control-title">
+                                <i class="fas fa-utensils"></i>
+                                <span>Food</span>
+                            </div>
+                            <div class="control-value" id="foodValue">Mixed Diet</div>
+                        </div>
+                        <div class="diet-selection">
+                            <div class="diet-options">
+                                <label class="diet-option">
+                                    <input type="radio" name="diet" value="vegan" id="dietVegan">
+                                    <div class="diet-card">
+                                        <i class="fas fa-seedling"></i>
+                                        <span>Vegan</span>
+                                        <small>~0.5 tons CO₂/year</small>
+                                    </div>
+                                </label>
+                                <label class="diet-option">
+                                    <input type="radio" name="diet" value="vegetarian" id="dietVegetarian">
+                                    <div class="diet-card">
+                                        <i class="fas fa-cheese"></i>
+                                        <span>Vegetarian</span>
+                                        <small>~1.0 tons CO₂/year</small>
+                                    </div>
+                                </label>
+                                <label class="diet-option">
+                                    <input type="radio" name="diet" value="mixed" checked id="dietMixed">
+                                    <div class="diet-card">
+                                        <i class="fas fa-balance-scale"></i>
+                                        <span>Mixed</span>
+                                        <small>~1.8 tons CO₂/year</small>
+                                    </div>
+                                </label>
+                                <label class="diet-option">
+                                    <input type="radio" name="diet" value="meat-heavy" id="dietMeatHeavy">
+                                    <div class="diet-card">
+                                        <i class="fas fa-drumstick-bite"></i>
+                                        <span>Meat-heavy</span>
+                                        <small>~2.5 tons CO₂/year</small>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="food-waste">
+                                <label>Food Waste</label>
+                                <div class="slider-with-labels">
+                                    <input type="range" min="0" max="100" value="15" class="slider" id="foodWasteSlider">
+                                    <div class="slider-labels">
+                                        <span>None</span>
+                                        <span>Some</span>
+                                        <span>High</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Shopping & Consumption -->
+                    <div class="control-group">
+                        <div class="control-header">
+                            <div class="control-title">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>Shopping & Waste</span>
+                            </div>
+                            <div class="control-value" id="shoppingValue">$400</div>
+                        </div>
+                        <div class="shopping-inputs">
+                            <div class="shopping-category">
+                                <label>Monthly Spending</label>
+                                <div class="input-with-unit">
+                                    <input type="number" min="0" max="10000" step="50" value="400" id="monthlySpending">
+                                    <span class="unit">$/month</span>
+                                </div>
+                            </div>
+                            <div class="shopping-category">
+                                <label>Packaging Waste</label>
+                                <div class="waste-selection">
+                                    <button class="waste-option active" data-value="low">
+                                        <i class="fas fa-recycle"></i>
+                                        <span>Low</span>
+                                    </button>
+                                    <button class="waste-option" data-value="medium">
+                                        <i class="fas fa-trash-alt"></i>
+                                        <span>Medium</span>
+                                    </button>
+                                    <button class="waste-option" data-value="high">
+                                        <i class="fas fa-dumpster"></i>
+                                        <span>High</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="shopping-category">
+                                <label>Recycling Rate</label>
+                                <div class="percentage-input">
+                                    <input type="range" min="0" max="100" value="75" class="slider" id="recyclingRate">
+                                    <div class="percentage-display">
+                                        <span id="recyclingValue">75%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Household Info -->
+                    <div class="control-group household-info">
+                        <div class="control-header">
+                            <div class="control-title">
+                                <i class="fas fa-users"></i>
+                                <span>Household Information</span>
+                            </div>
+                        </div>
+                        <div class="household-inputs">
+                            <div class="input-field">
+                                <label for="householdSize">Household Size</label>
+                                <div class="number-stepper">
+                                    <button class="stepper-btn" id="decreaseSize">−</button>
+                                    <input type="number" min="1" max="10" value="3" id="householdSize">
+                                    <button class="stepper-btn" id="increaseSize">+</button>
+                                </div>
+                            </div>
+                            <div class="input-field">
+                                <label for="country">Country</label>
+                                <select id="country">
+                                    <option value="global">Global Average</option>
+                                    <option value="us">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="eu">European Union</option>
+                                    <option value="china">China</option>
+                                    <option value="india">India</option>
+                                    <option selected value="custom">Enter Custom</option>
+                                </select>
+                            </div>
+                            <div class="input-field" id="customCountryField" style="display: none;">
+                                <label for="customCountry">Custom Country</label>
+                                <input type="text" id="customCountry" placeholder="Enter country name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel-actions">
+                    <button class="btn btn-primary btn-lg" id="calculateBtn">
+                        <i class="fas fa-chart-line"></i>
+                        Calculate My Footprint
+                    </button>
+                    <button class="btn btn-secondary" id="quickTipsBtn">
+                        <i class="fas fa-lightbulb"></i>
+                        Quick Tips
+                    </button>
+                    <button class="btn btn-outline" id="loadSampleBtn">
+                        <i class="fas fa-magic"></i>
+                        Load Sample Data
+                    </button>
+                </div>
+                
+                <!-- AI Insights -->
+                <div class="ai-insights" id="aiInsights">
+                    <div class="ai-header">
+                        <div class="ai-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="ai-title">AI Insights</div>
+                        <span class="ai-badge">Live Analysis</span>
+                    </div>
+                    <div class="ai-content">
+                        <div class="ai-loading" id="aiLoading">
+                            <div class="spinner"></div>
+                            <span>Analyzing your consumption patterns...</span>
+                        </div>
+                        <div class="ai-suggestion" id="aiSuggestion" style="display: none;">
+                            <!-- AI suggestions will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="panel results-panel">
+                <div class="panel-header">
+                    <div class="header-row">
+                        <h2 class="panel-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Your Results
+                        </h2>
+                        <div class="panel-actions-row">
+                            <button class="btn btn-icon" id="exportBtn" title="Export Data">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn btn-icon" id="printBtn" title="Print Report">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            <button class="btn btn-icon" id="resetBtn" title="Reset All">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Score Display -->
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="circle-progress" id="circleProgress">
+                            <svg width="160" height="160" viewBox="0 0 160 160">
+                                <circle class="circle-bg" cx="80" cy="80" r="70"></circle>
+                                <circle class="circle-fill" cx="80" cy="80" r="70" 
+                                        stroke-dasharray="439.8" stroke-dashoffset="264"></circle>
+                            </svg>
+                            <div class="score-content">
+                                <div class="score-number" id="footprintNumber">9.8</div>
+                                <div class="score-unit">tons CO₂/year</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="score-status">
+                        <div class="status-badge" id="footprintStatus">
+                            <span class="status-text">Below Average</span>
+                            <span class="status-dot"></span>
+                        </div>
+                        <p class="score-description">
+                            <span id="comparisonText">35% lower</span> than global average
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Visualization -->
+                <div class="visualization">
+                    <h3 class="viz-title">Footprint Breakdown</h3>
+                    <div class="category-chart">
+                        <div class="chart-bars">
+                            <div class="chart-bar-group">
+                                <div class="bar-label">Home</div>
+                                <div class="bar-container">
+                                    <div class="bar bar-home" id="homeBar" style="width: 25%;"></div>
+                                </div>
+                                <div class="bar-value" id="homeResult">2.7</div>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar-label">Transport</div>
+                                <div class="bar-container">
+                                    <div class="bar bar-transport" id="transportBar" style="width: 30%;"></div>
+                                </div>
+                                <div class="bar-value" id="transportResult">2.9</div>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar-label">Food</div>
+                                <div class="bar-container">
+                                    <div class="bar bar-food" id="foodBar" style="width: 35%;"></div>
+                                </div>
+                                <div class="bar-value" id="foodResult">2.1</div>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar-label">Shopping</div>
+                                <div class="bar-container">
+                                    <div class="bar bar-shopping" id="shoppingBar" style="width: 20%;"></div>
+                                </div>
+                                <div class="bar-value" id="shoppingResult">2.1</div>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color home-color"></span>
+                                <span>Home Energy</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color transport-color"></span>
+                                <span>Transportation</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color food-color"></span>
+                                <span>Food</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color shopping-color"></span>
+                                <span>Shopping</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Recommendations -->
+                <div class="recommendations">
+                    <div class="recommendations-header">
+                        <h3 class="recommendations-title">
+                            <i class="fas fa-robot"></i>
+                            AI-Powered Recommendations
+                        </h3>
+                        <button class="btn btn-icon btn-small" id="refreshBtn" title="Refresh Recommendations">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div class="recommendations-list" id="recommendationList">
+                        <!-- Recommendations will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Section -->
+        <div class="action-section">
+            <div class="panel action-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fas fa-rocket"></i>
+                        Take Action
+                    </h2>
+                    <p class="panel-subtitle">Commit to sustainability with personalized pledges</p>
+                </div>
+                
+                <div class="pledge-options">
+                    <div class="pledge-card" data-pledge="energy">
+                        <div class="pledge-icon">
+                            <i class="fas fa-solar-panel"></i>
+                        </div>
+                        <h3 class="pledge-title">Energy Saver</h3>
+                        <p class="pledge-description">Reduce home energy by 15% in 6 months</p>
+                        <div class="pledge-impact">
+                            <i class="fas fa-leaf"></i>
+                            <span>Saves ~1.2 tons CO₂/year</span>
+                        </div>
+                        <button class="btn btn-outline pledge-select">Select Pledge</button>
+                    </div>
+                    
+                    <div class="pledge-card" data-pledge="transport">
+                        <div class="pledge-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </div>
+                        <h3 class="pledge-title">Green Commuter</h3>
+                        <p class="pledge-description">Use green transport 3+ days/week</p>
+                        <div class="pledge-impact">
+                            <i class="fas fa-leaf"></i>
+                            <span>Saves ~1.8 tons CO₂/year</span>
+                        </div>
+                        <button class="btn btn-outline pledge-select">Select Pledge</button>
+                    </div>
+                    
+                    <div class="pledge-card" data-pledge="food">
+                        <div class="pledge-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="pledge-title">Sustainable Foodie</h3>
+                        <p class="pledge-description">Plant-based meals & reduce waste</p>
+                        <div class="pledge-impact">
+                            <i class="fas fa-leaf"></i>
+                            <span>Saves ~2.1 tons CO₂/year</span>
+                        </div>
+                        <button class="btn btn-outline pledge-select">Select Pledge</button>
+                    </div>
+                </div>
+                
+                <div class="pledge-summary" id="pledgeSummary" style="display: none;">
+                    <h3>Selected Pledges</h3>
+                    <div class="selected-pledges" id="selectedPledges">
+                        <!-- Selected pledges will appear here -->
+                    </div>
+                    <button class="btn btn-primary" id="commitPledgeBtn">
+                        <i class="fas fa-handshake"></i>
+                        Commit to Pledges
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Share & Export -->
+            <div class="share-export">
+                <div class="share-box">
+                    <h3><i class="fas fa-share-alt"></i> Share Your Results</h3>
+                    <p>Inspire others to calculate their footprint</p>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" data-platform="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="share-btn facebook" data-platform="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="share-btn linkedin" data-platform="linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button class="share-btn link" data-platform="link" id="copyLinkBtn">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="export-box">
+                    <h3><i class="fas fa-download"></i> Export Data</h3>
+                    <p>Download your complete footprint analysis</p>
+                    <div class="export-options">
+                        <button class="btn btn-secondary" id="exportPDFBtn">
+                            <i class="fas fa-file-pdf"></i> PDF Report
+                        </button>
+                        <button class="btn btn-secondary" id="exportJSONBtn">
+                            <i class="fas fa-code"></i> JSON Data
+                        </button>
+                        <button class="btn btn-secondary" id="exportCSVBtn">
+                            <i class="fas fa-table"></i> CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <div class="logo-icon small">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main">EcoTrace</span>
+                            <span class="logo-ai">AI</span>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Advanced ecological footprint analysis powered by AI. 
+                        Making sustainability measurable and actionable.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-calculator"></i> Carbon Calculator</a></li>
+                        <li><a href="#"><i class="fas fa-robot"></i> AI Insights</a></li>
+                        <li><a href="#"><i class="fas fa-chart-line"></i> Progress Tracking</a></li>
+                        <li><a href="#"><i class="fas fa-hands-helping"></i> Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-book"></i> Methodology</a></li>
+                        <li><a href="#"><i class="fas fa-database"></i> Data Sources</a></li>
+                        <li><a href="#"><i class="fas fa-graduation-cap"></i> Research</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <p>Stay updated with sustainability tips</p>
+                        <div class="newsletter-input">
+                            <input type="email" placeholder="Your email">
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 EcoTrace AI. All rights reserved. Made with <i class="fas fa-heart"></i> for a sustainable future.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeInfoModal">&times;</button>
+            <h2><i class="fas fa-info-circle"></i> About EcoTrace AI</h2>
+            <div class="modal-body">
+                <p>EcoTrace AI is an advanced ecological footprint calculator that uses machine learning algorithms to provide personalized sustainability recommendations.</p>
+                <div class="features-list">
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <h4>AI-Powered Insights</h4>
+                        <p>Our algorithms analyze your consumption patterns to provide personalized recommendations.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Real-time Visualization</h4>
+                        <p>Interactive charts and graphs help you understand your environmental impact.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-rocket"></i>
+                        <h4>Actionable Plans</h4>
+                        <p>Get customized action plans to reduce your footprint effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeSuccessModal">&times;</button>
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Pledge Committed!</h2>
+            <div class="modal-body">
+                <p>Thank you for committing to a more sustainable lifestyle. Our AI will track your progress and provide tips to help you achieve your goals.</p>
+                <div class="success-actions">
+                    <button class="btn btn-primary" id="viewPlanBtn">
+                        <i class="fas fa-calendar-alt"></i>
+                        View Action Plan
+                    </button>
+                    <button class="btn btn-secondary" id="sharePledgeBtn">
+                        <i class="fas fa-share-alt"></i>
+                        Share Commitment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="ai-model.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
